@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhiMir - 창의성을 무한히 펼치자</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        header {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        nav a:hover {
+            color: #888;
+        }
+
+        .hero {
+            margin-top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-image: url('PhiMir_BackGround.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        .hero-logo {
+            width: 300px;
+            height: auto;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero p {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.8);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            letter-spacing: 2px;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ffffff, transparent);
+        }
+
+        .about-content {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #cccccc;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 2;
+        }
+
+        .strengths {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .strength-card {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(45, 45, 45, 0.8) 100%);
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .strength-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .strength-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        .strength-card p {
+            color: #aaaaaa;
+            line-height: 1.8;
+        }
+
+        .games-section {
+            background: linear-gradient(180deg, #0a0a0a 0%, #151515 100%);
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.6) 0%, rgba(45, 45, 45, 0.6) 100%);
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            position: relative;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game-card:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.03);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .game-card-logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
+        }
+
+        .game-card h3 {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            line-height: 1.4;
+        }
+
+        .game-card p {
+            color: #aaa;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-badge-small {
+            display: inline-block;
+            background: linear-gradient(90deg, #4a4a4a, #2a2a2a);
+            color: #ffffff;
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            letter-spacing: 1px;
+            position: absolute;
+            bottom: 1.5rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            margin: 5% auto;
+            padding: 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 900px;
+            animation: slideIn 0.3s;
+            position: relative;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            color: #aaa;
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1;
+            transition: color 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #fff;
+        }
+
+        .modal-body {
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .modal-body:has(.game-logo-container:empty),
+        .modal-body:not(:has(.game-logo-container)) {
+            grid-template-columns: 1fr;
+        }
+
+        .game-logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .game-logo {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+        }
+
+        .game-info h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            color: #ffffff;
+        }
+
+        .game-tagline {
+            font-size: 1.2rem;
+            color: #888;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .game-description {
+            font-size: 1.1rem;
+            color: #cccccc;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .game-features {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .feature-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .game-highlights {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .game-highlights h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .game-highlights ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .game-highlights li {
+            padding: 0.5rem 0;
+            color: #aaaaaa;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .game-highlights li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #ffffff;
+        }
+
+        .game-status {
+            margin-top: 1rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #4a4a4a, #2a2a2a);
+            color: #ffffff;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 968px) {
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+
+            .modal-body {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+                gap: 2rem;
+            }
+
+            .game-logo {
+                max-width: 200px;
+            }
+
+            .game-info h3 {
+                font-size: 2rem;
+            }
+
+            .close {
+                top: 10px;
+                right: 15px;
+                font-size: 28px;
+            }
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.6) 0%, rgba(45, 45, 45, 0.6) 100%);
+            padding: 3rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .game-card:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.03);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .game-card h3 {
+            font-size: 1.4rem;
+            color: #999;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .game-card p {
+            color: #666;
+            font-style: italic;
+            font-size: 1rem;
+        }
+
+        .contact {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(26, 26, 26, 0.5);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            background: rgba(45, 45, 45, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .contact-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        .contact-item a {
+            color: #aaaaaa;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .contact-item a:hover {
+            color: #ffffff;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            padding: 1.2rem 2.5rem;
+            background: rgba(26, 26, 26, 0.8);
+            border-radius: 8px;
+            text-decoration: none;
+            color: #ffffff;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .social-links a:hover {
+            background: rgba(45, 45, 45, 0.9);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        footer {
+            background: #000000;
+            text-align: center;
+            padding: 2.5rem;
+            color: #666;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .hero-logo {
+                width: 200px;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .social-links a {
+                width: 80%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <img src="파이미르_로고1.png" alt="PhiMir Logo" class="logo-img">
+            <ul>
+                <li><a href="#about">소개</a></li>
+                <li><a href="#games">게임</a></li>
+                <li><a href="#contact">연락처</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <img src="파이미르_로고1.png" alt="PhiMir" class="hero-logo">
+            <h1>PHIMIR</h1>
+            <p>창의성을 무한히 펼치자</p>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <h2 class="section-title">ABOUT US</h2>
+        <div class="about-content">
+            <p>PhiMir는 창의적인 게임 경험을 만들어가는 인디게임 개발사입니다.<br>
+            우리는 독창적인 아이디어와 열정으로 플레이어들에게 새로운 즐거움을 선사합니다.</p>
+        </div>
+
+        <div class="strengths">
+            <div class="strength-card">
+                <h3>창의성</h3>
+                <p>독창적인 아이디어와 신선한 접근으로 게임의 새로운 가능성을 탐구합니다</p>
+            </div>
+            <div class="strength-card">
+                <h3>각 분야의 분업화</h3>
+                <p>전문화된 팀 구성으로 각 분야의 최고 퀄리티를 실현합니다</p>
+            </div>
+            <div class="strength-card">
+                <h3>빠른 협업</h3>
+                <p>효율적인 소통과 협업 시스템으로 신속한 개발 프로세스를 구현합니다</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="games" class="section games-section">
+        <h2 class="section-title">OUR GAMES</h2>
+        <div class="games-grid">
+            <div class="game-card" onclick="openGameModal('srg')">
+                <img src="SRG_Logo.png" alt="Speed Runner GO" class="game-card-logo">
+                <h3>Speed Runner GO</h3>
+                <p>스피드런 기반 플랫포머</p>
+                <span class="status-badge-small">개발 중</span>
+            </div>
+            <div class="game-card" onclick="openGameModal('tower')">
+                <h3>여섯탑의 전설 <검의 전설></h3>
+                <p>스토리형 RPG</p>
+                <span class="status-badge-small">개발 중</span>
+            </div>
+            <div class="game-card" onclick="openGameModal('liberator')">
+                <img src="Liberator_Logo.png" alt="Liberator" class="game-card-logo">
+                <h3>Liberator</h3>
+                <p>디스토피아 액션 어드벤처</p>
+                <span class="status-badge-small">개발 중</span>
+            </div>
+            <div class="game-card" onclick="openGameModal('cat')">
+                <h3>고양이의 흔적:<br>잃어버린 물고기</h3>
+                <p>액션 + 퍼즐 메트로배니아</p>
+                <span class="status-badge-small">개발 중</span>
+            </div>
+            <div class="game-card" onclick="openGameModal('sigmund')">
+                <h3>Sigmund</h3>
+                <p>마피아 게임</p>
+                <span class="status-badge-small">개발 중</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Modal -->
+    <div id="gameModal" class="modal" onclick="closeGameModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close" onclick="closeGameModal()">&times;</span>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be injected by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <section id="contact" class="section contact">
+        <h2 class="section-title">CONTACT</h2>
+        <div class="contact-grid">
+            <div class="contact-item">
+                <h3>이메일</h3>
+                <a href="mailto:phimir19@gmail.com">phimir19@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <h3>전화</h3>
+                <a href="tel:010-3687-2035">010-3687-2035</a>
+            </div>
+        </div>
+        
+        <div class="social-links">
+            <a href="https://www.instagram.com/phimircompany/" target="_blank">Instagram</a>
+            <a href="https://www.youtube.com/channel/UCyev99GxOw9LynsZEKkUgQA" target="_blank">YouTube</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 PhiMir. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const gameData = {
+            srg: {
+                logo: 'SRG_Logo.png',
+                title: 'Speed Runner GO',
+                tagline: '"글리치도 기믹이다"',
+                description: '2D 플랫포머 게임을 탈출하는 플레이어의 이야기.<br>스피드런을 기반으로 한 독창적인 플랫포머 게임으로,<br>디지털 시티에서 시작해 숲, 동굴, 바다를 거쳐 낙원을 찾아가는 여정입니다.',
+                tags: ['🎮 2D 플랫포머', '⚡ 스피드런 기반', '🎯 PC/Steam 출시 예정'],
+                features: [
+                    '다양한 적과 장애물 (공룡, 개, 개구리, 독수리 등)',
+                    '9가지 테마의 독특한 맵 (디지털시티, 숲, 동굴, 바다 등)',
+                    '스킨 교환 및 코인 시스템',
+                    '스피드러너를 위한 최적화된 게임플레이'
+                ]
+            },
+            tower: {
+                title: '여섯탑의 전설 <검의 전설>',
+                tagline: '전설의 검을 찾아서',
+                description: '북유럽 배경의 스토리형 RPG 게임.<br>탑에 들어온 주인공을 아스가르드의 빛의 신 발드르가 육성하는 이야기.<br>101층의 탑을 오르며 20가지의 전설적인 검을 찾아내는 모험이 펼쳐집니다.',
+                tags: ['⚔️ RPG', '🗡️ 20가지 전설의 검', '🎯 PC/Steam 출시 예정'],
+                features: [
+                    '101층 규모의 방대한 탑 던전',
+                    '20가지 전설의 검과 각각의 전용 스킬',
+                    '11가지의 다양한 테마 맵 (도서관, 백제, 콜로세움, 아스가르드 등)',
+                    '영혼 시스템과 직업 특성 (검사, 마검사, 타이탄, 암살자 등)',
+                    '각 검마다 숨겨진 스토리와 획득 조건'
+                ]
+            },
+            liberator: {
+                logo: 'Liberator_Logo.png',
+                title: 'Liberator',
+                tagline: '진실을 위한 선택',
+                description: '외부 세계와 격리된 세라필 섬을 배경으로 한 디스토피아 액션 어드벤처.<br>정부의 감시 아래 통제되는 섬에서 저항 조직과 함께 진실을 밝히는 게임입니다.',
+                tags: ['🕵️ 액션 어드벤처', '🏝️ 디스토피아', '🎯 PC/Steam 출시 예정'],
+                features: [
+                    '감시 사회 시스템 - 드론, 카메라, 투명 벽',
+                    '8개의 미션으로 구성된 스토리',
+                    '다양한 결말 분기',
+                    '저항 조직 \'리버레이터\'와의 협력',
+                    '비밀 감시 시설 침투와 정부 인물 납치 작전'
+                ]
+            },
+            cat: {
+                title: '고양이의 흔적: 잃어버린 물고기',
+                tagline: '작은 고양이의 큰 모험',
+                description: '애착 물고기를 되찾기 위한 새끼 고양이의 여정.<br>초원, 사막, 설원, 동굴, 산림을 여행하며 퍼즐과 액션을 수행하고,<br>숨겨진 비밀들을 마주하게 됩니다.',
+                tags: ['🐱 액션 + 퍼즐', '🗺️ 메트로배니아', '🎯 PC/Steam 출시 예정'],
+                features: [
+                    '챕터별 장르 분리 (액션 플랫포머 / 퍼즐)',
+                    '7가지 테마 맵 (초원, 사막, 설원, 동굴, 산림, 용의 잔해, 히든룸)',
+                    '전설의 물고기를 찾는 수집 요소',
+                    '히든 엔딩 시스템',
+                    '환경 상호작용과 NPC 힌트 시스템'
+                ]
+            },
+            sigmund: {
+                title: 'Sigmund',
+                tagline: '정신병원의 마피아 게임',
+                description: '정신병원을 배경으로 한 독특한 마피아 게임.<br>정신질환자, 일반인, 간호사로 나뉘어 각자의 목표를 달성하고,<br>투표 시스템과 특수 능력을 활용해 승리를 쟁취하세요.',
+                tags: ['🎭 마피아 게임', '🏥 정신병원', '🎯 PC 출시 예정'],
+                features: [
+                    '10명의 플레이어 - 정신질환자 4명, 일반인 4명, 간호사 2명',
+                    '독특한 투표 시스템',
+                    '다양한 정신질환 직업 (우울증, 조증, 강박장애, PTSD, 조현병 등)',
+                    '3가지 맵 - 정신병원, 카페, 호텔',
+                    '3라운드 점수제 게임'
+                ]
+            }
+        };
+
+        function openGameModal(gameId) {
+            const game = gameData[gameId];
+            const modalBody = document.getElementById('modalBody');
+            
+            let logoHTML = '';
+            if (game.logo) {
+                logoHTML = `
+                    <div class="game-logo-container">
+                        <img src="${game.logo}" alt="${game.title}" class="game-logo">
+                    </div>
+                `;
+            }
+            
+            let tagsHTML = game.tags.map(tag => `<div class="feature-tag">${tag}</div>`).join('');
+            let featuresHTML = game.features.map(feature => `<li>${feature}</li>`).join('');
+            
+            modalBody.innerHTML = `
+                ${logoHTML}
+                <div class="game-info">
+                    <h3>${game.title}</h3>
+                    <p class="game-tagline">${game.tagline}</p>
+                    <p class="game-description">${game.description}</p>
+                    <div class="game-features">
+                        ${tagsHTML}
+                    </div>
+                    <div class="game-highlights">
+                        <h4>게임 특징</h4>
+                        <ul>
+                            ${featuresHTML}
+                        </ul>
+                    </div>
+                    <div class="game-status">
+                        <span class="status-badge">개발 중</span>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('gameModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeGameModal(event) {
+            if (!event || event.target === document.getElementById('gameModal')) {
+                document.getElementById('gameModal').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeGameModal();
+            }
+        });
+    </script>
+</body>
+</html>
